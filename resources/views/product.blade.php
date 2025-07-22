@@ -66,20 +66,24 @@
                 <span class="text-xl font-bold text-trade-gray">Lara Ecomm</span>
             </div>
             <div class="hidden md:flex space-x-1">
-                <a href="#home" class="nav-link active">Home</a>
+                <a href="{{ route('home') }}" class="nav-link active">Home</a>
                 <a href="#products" class="nav-link">Products</a>
                 <a href="#pricing" class="nav-link">Pricing</a>
                 <a href="#about" class="nav-link">About Us</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="#process" class="nav-link">Cart</a>
+                <a href="{{ route('contactPage') }}" class="nav-link">Contact</a>
+                <a href="{{ route('cartPage') }}" class="nav-link">Cart</a>
             </div>
             <div class="flex items-center space-x-4">
                 @guest
-                    <button class="btn-primary"><a href="{{ route('register') }}">Create Account</a></button>    
+                    <button class="btn-primary"><a href="{{ route('register') }}">Login/Register</a></button>    
                 @endguest
 
                 @auth
-                <button class="btn-primary"><a href="{{ route('vendor.otp-form') }}">Become Vendor</a></button>
+                    @if (Auth::user()->role === 'vendor')
+                        <button class="btn-primary"><a href="{{ route('dashboard') }}">Dashboard</a></button>    
+                    @else
+                        <button class="btn-primary"><a href="{{ route('vendor.otp-form') }}">Become Vendor</a></button>
+                    @endif
                 @endauth
                 <button class="md:hidden">
                     <i class="fas fa-bars text-xl"></i>

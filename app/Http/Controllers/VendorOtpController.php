@@ -1,16 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Mail\VendorOtpMail;
 use App\Models\Otp;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class VendorOtpController extends Controller
 {
-  public function showOtpForm()
+    public function showOtpForm()
     {
         $user = Auth::user();
         return view('vendor.otp-form', compact('user'));
@@ -29,6 +29,21 @@ class VendorOtpController extends Controller
         Mail::to($user->email)->send(new VendorOtpMail($otp));
 
         return redirect()->route('vendor.verify-otp')->with('status', 'OTP sent to your email.');
+    }
+
+    public function resendOtp(Request $request)
+    {
+        $user = Auth::user();
+        $otp = rand(100000, 999999);
+
+        Otp::updateOrCreate(
+            ['user_id' => $user->id],
+            ['otp' => $otp, 'expires_at' => now()->addMinutes(10)]
+        );
+
+        Mail::to($user->email)->send(new VendorOtpMail($otp));
+
+        return redirect()->route('vendor.verify-otp')->with('status', 'New OTP sent to your email.');
     }
 
     public function showVerifyOtpForm()
@@ -61,7 +76,7 @@ class VendorOtpController extends Controller
     {
         $user = Auth::user();
         if ($user->role !== 'vendor') {
-            return redirect()->route('product-listings')->with('error', 'Unauthorized access.');
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
         }
         return view('dashboard');
     }

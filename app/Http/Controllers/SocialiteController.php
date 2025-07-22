@@ -47,7 +47,7 @@ class SocialiteController extends Controller
                     Auth::login($userData);
                 }
             }
-            return redirect()->route('product-listings');
+            return redirect()->route('home');
         }
         abort(404);
     }catch(Exception $e){
