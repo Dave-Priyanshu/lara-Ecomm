@@ -10,7 +10,6 @@ It supports user shopping and vendor-based product management, with dynamic mult
 | Tech        | Description                            |
 |-------------|----------------------------------------|
 | ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white) | PHP Web Framework |
-| ![Livewire](https://img.shields.io/badge/Livewire-4B5563?style=for-the-badge&logo=laravel&logoColor=white) | Reactive Laravel Components |
 | ![Filament](https://img.shields.io/badge/FilamentPHP-3B82F6?style=for-the-badge&logo=laravel&logoColor=white) | Admin Panel / Resource Builder |
 | ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white) | Modern Utility-first CSS |
 
@@ -55,7 +54,6 @@ It supports user shopping and vendor-based product management, with dynamic mult
 ## 📦 Packages Used
 
 - `laravel/breeze` - Simple, fast auth scaffolding
-- `livewire/livewire` - Dynamic frontend with no JS
 - `filament/filament` - Powerful admin dashboard & resource management
 - `laravel/socialite` - OAuth with Google & Facebook
 
