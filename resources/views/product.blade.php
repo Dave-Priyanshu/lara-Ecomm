@@ -80,7 +80,7 @@
 
                 @auth
                     @if (Auth::user()->role === 'vendor')
-                        <button class="btn-primary"><a href="{{ route('dashboard') }}">Dashboard</a></button>    
+                       <button class="btn-primary"><a href="{{ route('filament.vendor.pages.dashboard') }}">Dashboard</a></button>    
                     @else
                         <button class="btn-primary"><a href="{{ route('vendor.otp-form') }}">Become Vendor</a></button>
                     @endif

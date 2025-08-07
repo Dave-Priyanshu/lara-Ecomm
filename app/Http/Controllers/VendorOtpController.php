@@ -66,7 +66,7 @@ class VendorOtpController extends Controller
         if ($otpRecord) {
             $user->update(['role' => 'vendor']);
             $otpRecord->delete();
-            return redirect()->route('dashboard')->with('status', 'You are now a vendor!');
+            return redirect()->route('filament.vendor.pages.dashboard')->with('status', 'You are now a vendor!');
         }
 
         return back()->withErrors(['otp' => 'Invalid or expired OTP.']);
@@ -78,6 +78,6 @@ class VendorOtpController extends Controller
         if ($user->role !== 'vendor') {
             return redirect()->route('home')->with('error', 'Unauthorized access.');
         }
-        return view('dashboard');
+        return redirect()->route('filament.vendor.pages.dashboard');
     }
 }

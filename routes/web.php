@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('product');
 })->name('home');
 
+Route::get('/patterns', function () {
+    return view('patterns');
+})->name('patterns');
+
 Route::get('/cart', function () {
     return view('users.cart');
 })->name('cartPage');
@@ -18,14 +22,9 @@ Route::get('/contact', function () {
 })->name('contactPage');
 
 Route::controller(SocialiteController::class)->group(function(){
-
-    Route::get('/auth/redirection/{provider}','authProviderRedirect')->name('auth.redirection');
-    Route::get('/auth/{provider}/callback','socialAuthentication')->name('auth.callback');
-});
-
-Route::get('/vendor/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified','vendor'])->name('dashboard');
+    Route::get('/auth/redirection/{provider}', 'authProviderRedirect')->name('auth.redirection');
+    Route::get('/auth/{provider}/callback', 'socialAuthentication')->name('auth.callback');
+})->middleware('throttle:6,1');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/vendor/resend-otp', [VendorOtpController::class, 'resendOtp'])->name('vendor.resend-otp');
     Route::get('/vendor/verify-otp', [VendorOtpController::class, 'showVerifyOtpForm'])->name('vendor.verify-otp');
     Route::post('/vendor/verify-otp', [VendorOtpController::class, 'verifyOtp'])->name('vendor.verify-otp');
+    Route::get('/vendor/dashboard', [VendorOtpController::class, 'dashboard'])->name('vendor.dashboard');
 });
 
 require __DIR__.'/auth.php';
